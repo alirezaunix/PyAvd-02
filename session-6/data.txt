@@ -1,0 +1,2 @@
+ali,naghi,001,14,eee
+negin,virus,00,20,22
