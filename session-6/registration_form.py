@@ -27,7 +27,7 @@ class DesignMainForm:
         self.FONT_SIZE = 30
 
         # 1
-        label1 = Label(self.mainform, text="First name",
+        label1 = Label(self.mainform, text="First name *",
                        font=("", self.FONT_SIZE, ""))
         label1.grid(row=0, column=0)
 
@@ -36,7 +36,7 @@ class DesignMainForm:
         self.ent_fname.config(bg="#6b5b95", fg="#a2b9bc")
 
         # 2
-        label2 = Label(self.mainform, text="Last name",
+        label2 = Label(self.mainform, text="Last name *",
                        font=("", self.FONT_SIZE, ""))
         label2.grid(row=1, column=0)
 
@@ -103,6 +103,9 @@ class DesignMainForm:
         self.ent_age.delete(0, END)
 
     def submit_action(self):
+       if self.ent_fname.get()=="" or self.ent_lname.get()=="":
+           messagebox.showerror("Showerror","Firstname or Lastname Field is Empty")
+           return 
        fobj.writeIO(
            f"{self.ent_fname.get()},{self.ent_lname.get()},{self.ent_phone.get()},{self.ent_age.get()},{self.ent_email.get()}\n")
        messagebox.showinfo("showinfo", "Data Saved")
@@ -125,5 +128,5 @@ class DesignMainForm:
         self.create_table(lines)
 
 if __name__=="__main__":
-    form1 = DesignMainForm()
     fobj = FileIO("/Users/alireza/Desktop/pyadv-02/session-6/data.txt")
+    form1 = DesignMainForm()
