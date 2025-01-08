@@ -1,5 +1,3 @@
-f1 = open("/Users/alireza/Desktop/pyadv-02/session-6/temp.txt","at")
-f1.write("hi\n")
-f1.write("Hoy\n")
-f1.write("Bye\n")
-f1.close()
+f1=open("","tr")
+str1=f1.read()
+f1.write(str1,"\n")
