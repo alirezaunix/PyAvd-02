@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>458</width>
     <height>598</height>
    </rect>
   </property>
@@ -23,12 +23,12 @@
    <string/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>4</x>
       <y>31</y>
-      <width>338</width>
+      <width>453</width>
       <height>514</height>
      </rect>
     </property>
@@ -134,6 +134,13 @@
          <height>16000000</height>
         </size>
        </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:296;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -176,7 +183,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkbox_male">
+        <widget class="QRadioButton" name="radio_male">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -188,7 +195,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="checkbox_female">
+        <widget class="QRadioButton" name="radio_female">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
@@ -241,11 +248,14 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="btn_sumbit">
+        <widget class="QPushButton" name="btn_submit">
          <property name="font">
           <font>
            <pointsize>20</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Submit</string>
@@ -261,6 +271,18 @@
          </property>
          <property name="text">
           <string>Cancel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_clear">
+         <property name="font">
+          <font>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Clear</string>
          </property>
         </widget>
        </item>
@@ -286,7 +308,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>350</width>
+     <width>458</width>
      <height>24</height>
     </rect>
    </property>
@@ -305,14 +327,78 @@
   <tabstop>line_mail</tabstop>
   <tabstop>text_address</tabstop>
   <tabstop>line_phone</tabstop>
-  <tabstop>checkbox_male</tabstop>
-  <tabstop>checkbox_female</tabstop>
   <tabstop>spin_age</tabstop>
   <tabstop>checkbox_married</tabstop>
-  <tabstop>btn_sumbit</tabstop>
+  <tabstop>btn_submit</tabstop>
   <tabstop>btn_cancel</tabstop>
+  <tabstop>btn_clear</tabstop>
   <tabstop>btn_showinfo</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_submit</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_clear</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_showinfo</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>393</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>298</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
