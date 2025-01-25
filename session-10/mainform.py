@@ -28,7 +28,53 @@ class FileIO:
         f1.close()
 
 
+class Ui_Window2():
+    
+    def createTable(self):
+        data_list = fileio.readIO().splitlines()
+
+        self.tableWidget = QtWidgets.QTableWidget()
+
+        # Row count
+        self.tableWidget.setRowCount(len(data_list))
+
+        # Column count
+        self.tableWidget.setColumnCount(8)
+
+        for i,data in enumerate(data_list):
+            items=data.split(",")
+            for j,yechizi in enumerate(items):
+                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(yechizi))
+
+        # Table will fit the screen horizontally
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(
+            QtWidgets.QHeaderView.Stretch)
+
+    
+    def setupUi(self, window2):
+        self.title = 'PyQt5 - QTableWidget'
+        self.left = 0
+        self.top = 0
+        self.width = 300
+        self.height = 200
+
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+
+        self.createTable()
+
+        self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.tableWidget)
+        self.setLayout(self.layout)
+
+
 class Ui_MainWindow(object):
+    
+    def showinfo(self):
+        ui2 = Ui_Window2()
+        ui2.setupUi(window2)
+        window2.show()
     
     def clear_click(self):
         self.line_fname.clear()
@@ -234,7 +280,7 @@ class Ui_MainWindow(object):
         self.btn_submit.clicked.connect(self.submit_click)  # type: ignore
         self.btn_clear.clicked.connect(self.clear_click)  # type: ignore
         self.btn_cancel.clicked.connect(MainWindow.close)  # type: ignore
-        self.btn_showinfo.clicked.connect(MainWindow.close)  # type: ignore
+        self.btn_showinfo.clicked.connect(self.showinfo)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.line_fname, self.line_lname)
         MainWindow.setTabOrder(self.line_lname, self.line_mail)
@@ -275,9 +321,16 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     fileio = FileIO("/Users/alireza/Desktop/pyadv-02/session-10/data.txt")
     import sys
+    
     app = QtWidgets.QApplication(sys.argv)
+    
+    
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    
+    ui2=Ui_Window2()
+    window2 = QtWidgets.QMainWindow()
+    
     sys.exit(app.exec_())

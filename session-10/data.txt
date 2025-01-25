@@ -1,1 +1,2 @@
-aa,bb,aa@bb.it,0009999,addrerre,True,13,True11111111,4444444,44444,r55666,555555	,True,34,True
+aa,bb,cc,vv,hh	,True,13,True
+55,666,777,777,8888,False,78,True
