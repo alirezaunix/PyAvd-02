@@ -28,7 +28,18 @@ class FileIO:
         f1.close()
 
 
-class Ui_Window2():
+class Ui_Window2(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.title = 'PyQt5 - QTableWidget'
+        self.left = 0
+        self.top = 0
+        self.width = 300
+        self.height = 200
+
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+
     
     def createTable(self):
         data_list = fileio.readIO().splitlines()
@@ -52,29 +63,20 @@ class Ui_Window2():
             QtWidgets.QHeaderView.Stretch)
 
     
-    def setupUi(self, window2):
-        self.title = 'PyQt5 - QTableWidget'
-        self.left = 0
-        self.top = 0
-        self.width = 300
-        self.height = 200
-
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+    def setupUi(self):
 
         self.createTable()
 
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.tableWidget)
         self.setLayout(self.layout)
-
+        self.show()
 
 class Ui_MainWindow(object):
     
     def showinfo(self):
         ui2 = Ui_Window2()
-        ui2.setupUi(window2)
-        window2.show()
+        ui2.setupUi()
     
     def clear_click(self):
         self.line_fname.clear()
