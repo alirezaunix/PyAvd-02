@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from form2 import TableList
 
 class FileIO:
 
@@ -46,16 +46,7 @@ class Ui_Window2(QtWidgets.QWidget):
 
         self.tableWidget = QtWidgets.QTableWidget()
 
-        # Row count
-        self.tableWidget.setRowCount(len(data_list))
-
-        # Column count
-        self.tableWidget.setColumnCount(8)
-
-        for i,data in enumerate(data_list):
-            items=data.split(",")
-            for j,yechizi in enumerate(items):
-                self.tableWidget.setItem(i, j, QtWidgets.QTableWidgetItem(yechizi))
+        # Row co
 
         # Table will fit the screen horizontally
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
@@ -75,9 +66,10 @@ class Ui_Window2(QtWidgets.QWidget):
 class Ui_MainWindow(object):
     
     def showinfo(self):
-        ui2 = Ui_Window2()
-        ui2.setupUi()
-    
+        self.t1=TableList()
+        self.t1.show()
+        #sys.exit(t1.exec_())
+
     def clear_click(self):
         self.line_fname.clear()
         self.line_lname.clear()
@@ -331,8 +323,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    
-    ui2=Ui_Window2()
-    window2 = QtWidgets.QMainWindow()
     
     sys.exit(app.exec_())

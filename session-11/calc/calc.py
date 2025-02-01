@@ -22,9 +22,11 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         uic.loadUi("/Users/alireza/Desktop/pyadv-02/session-11/calc/calc.ui", self) 
+
         file1=open("/Users/alireza/Desktop/pyadv-02/session-11/calc/style.qss")
         styleButton=file1.read()
         self.setStyleSheet(styleButton)
+
         file1.close()
         
         for v in range(10):
