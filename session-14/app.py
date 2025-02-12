@@ -9,13 +9,13 @@ async def start_server():
     async def handle_client(reader, writer):
         data = await reader.read(100)
         message = data.decode()
-        #print(f"Received: {message}")
+        print(f"Received: {message}")
         writer.write(data)
         await writer.drain()
         writer.close()
         
     
-    server = await asyncio.start_server(handle_client, '192.168.216.10', 65432)
+    server = await asyncio.start_server(handle_client, '192.168.16.16', 65432)
     async with server:
         await server.serve_forever()
 
@@ -34,7 +34,7 @@ class ChatMessage(ft.Row):
         self.controls = [
             ft.CircleAvatar(
                 content=ft.Text(self.get_initials(message.user_name)),
-                color=ft.Colors.WHITE,
+                color=ft.colors.WHITE,
                 bgcolor=self.get_avatar_color(message.user_name),
             ),
             ft.Column(
@@ -55,19 +55,19 @@ class ChatMessage(ft.Row):
 
     def get_avatar_color(self, user_name: str):
         colors_lookup = [
-            ft.Colors.AMBER,
-            ft.Colors.BLUE,
-            ft.Colors.BROWN,
-            ft.Colors.CYAN,
-            ft.Colors.GREEN,
-            ft.Colors.INDIGO,
-            ft.Colors.LIME,
-            ft.Colors.ORANGE,
-            ft.Colors.PINK,
-            ft.Colors.PURPLE,
-            ft.Colors.RED,
-            ft.Colors.TEAL,
-            ft.Colors.YELLOW,
+            ft.colors.AMBER,
+            ft.colors.BLUE,
+            ft.colors.BROWN,
+            ft.colors.CYAN,
+            ft.colors.GREEN,
+            ft.colors.INDIGO,
+            ft.colors.LIME,
+            ft.colors.ORANGE,
+            ft.colors.PINK,
+            ft.colors.PURPLE,
+            ft.colors.RED,
+            ft.colors.TEAL,
+            ft.colors.YELLOW,
         ]
         return colors_lookup[hash(user_name) % len(colors_lookup)]
 
@@ -112,7 +112,7 @@ async def main(page: ft.Page):
         if message.message_type == "chat_message":
             m = ChatMessage(message)
         elif message.message_type == "login_message":
-            m = ft.Text(message.text, italic=True, color=ft.Colors.BLACK45, size=12)
+            m = ft.Text(message.text, italic=True, color=ft.colors.BLACK45, size=12)
         chat.controls.append(m)
         page.update()
 
@@ -158,7 +158,7 @@ async def main(page: ft.Page):
     page.add(
         ft.Container(
             content=chat,
-            border=ft.border.all(1, ft.Colors.OUTLINE),
+            border=ft.border.all(1, ft.colors.OUTLINE),
             border_radius=5,
             padding=10,
             expand=True,
@@ -167,7 +167,7 @@ async def main(page: ft.Page):
             [
                 new_message,
                 ft.IconButton(
-                    icon=ft.Icons.SEND_ROUNDED,
+                    icon=ft.icons.SEND_ROUNDED,
                     tooltip="Send message",
                     on_click=send_message_click,
                 ),
