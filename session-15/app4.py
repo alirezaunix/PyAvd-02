@@ -17,8 +17,9 @@ async def translate(update: Update, context):
     
 if __name__ == '__main__':
     proxy_url = "socks5://127.0.0.1:1080"
-    application = ApplicationBuilder().token("6902066999:AAFdOwb-HLfC_AfLxQ3iE3og5NCUpeVa8G4").proxy(
+    application = ApplicationBuilder().token("7389068787:AAFq-t06qBROyKWnfhZpITzRqfflAFRkbQM").proxy(
     proxy_url).get_updates_proxy(proxy_url).build()
+
     start_handler = CommandHandler('start', start)
     translate_handler = CommandHandler('translate', translate)
     application.add_handler(start_handler)
