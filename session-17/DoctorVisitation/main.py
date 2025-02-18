@@ -1,6 +1,31 @@
 import flet as ft
 import jdatetime
 from datetime import datetime
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+
+engine = create_engine('sqlite:///visitors.db')
+Base = declarative_base()
+
+class Visitors_db(Base):
+    __tablename__ = 'Visitors'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    age = Column(Integer)
+    code = Column(String)
+    gender = Column(String)
+    phone = Column(String)
+    married = Column(String)
+    reservation_time = Column(String)
+
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
 
 file_path = "/Users/alireza/Desktop/pyadv-02/session-17/DoctorVisitation/visitors.txt"
 class Visitor:
@@ -39,20 +64,19 @@ class Visitor:
 
 class FileHandler:
     @staticmethod
-    def writeIO(filename, data):
-        with open(filename, "w") as file:
-            for visitor in data:
-                file.write(visitor.to_string() + "\n")
+    def writeIO(data):
+        data_1=data.__dict__
+        visi = Visitors_db(**data_1)
+        session.add_all([visi])
+        session.commit()      
 
     @staticmethod
-    def readIO(filename):
+    def readIO():
         visitors = []
         try:
-            with open(filename, "r") as file:
-                for line in file:
-                    visitors.append(Visitor.from_string(line))
+            visitors=session.query(Visitors_db).all()
         except FileNotFoundError:
-            pass  # If the file doesn't exist, return an empty list
+            pass  
         return visitors
 
 
@@ -62,7 +86,7 @@ def main(page: ft.Page):
     page.window.width=990
     visitors = []
 
-    visitors = FileHandler.readIO(file_path)
+    visitors = FileHandler.readIO()
 
     def add_visitor(e):
         first_name = first_name_input.value
@@ -85,7 +109,7 @@ def main(page: ft.Page):
         visitor = Visitor(first_name, last_name, age, code,
                           gender, phone, married, reservation_time)
         visitors.append(visitor)
-        FileHandler.writeIO(file_path, visitors)
+        FileHandler.writeIO(visitor)
         page.update()
 
     def make_reservation(e):
@@ -120,7 +144,7 @@ def main(page: ft.Page):
                 visitor.reservation_time = gregorian_date
                 break
 
-        FileHandler.writeIO(file_path, visitors)
+        FileHandler.writeIO(visitor)
         update_visitor_list()
         page.update()
 
