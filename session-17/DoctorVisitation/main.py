@@ -2,7 +2,7 @@ import flet as ft
 import jdatetime
 from datetime import datetime
 
-
+file_path = "/Users/alireza/Desktop/pyadv-02/session-17/DoctorVisitation/visitors.txt"
 class Visitor:
     def __init__(self, first_name, last_name, age, code, gender, phone, married, reservation_time=None):
         self.first_name = first_name
@@ -40,14 +40,12 @@ class Visitor:
 class FileHandler:
     @staticmethod
     def writeIO(filename, data):
-        """Write data to a file in comma-separated format."""
         with open(filename, "w") as file:
             for visitor in data:
                 file.write(visitor.to_string() + "\n")
 
     @staticmethod
     def readIO(filename):
-        """Read data from a file and return a list of Visitor objects."""
         visitors = []
         try:
             with open(filename, "r") as file:
@@ -64,8 +62,7 @@ def main(page: ft.Page):
     page.window.width=990
     visitors = []
 
-    # Load visitors from file
-    visitors = FileHandler.readIO("visitors.txt")
+    visitors = FileHandler.readIO(file_path)
 
     def add_visitor(e):
         first_name = first_name_input.value
@@ -75,12 +72,20 @@ def main(page: ft.Page):
         gender = gender_dropdown.value
         phone = phone_input.value
         married = married_checkbox.value
-        reservation_time = None  # Will be set in the reservation tab
+        reservation_time = None 
+        
+        first_name_input.value=""
+        last_name_input.value=""
+        age_input.value=""
+        code_input.value=""
+        gender_dropdown.value=""
+        phone_input.value=""
+        married_checkbox.value=""
 
         visitor = Visitor(first_name, last_name, age, code,
                           gender, phone, married, reservation_time)
         visitors.append(visitor)
-        FileHandler.writeIO("visitors.txt", visitors)
+        FileHandler.writeIO(file_path, visitors)
         page.update()
 
     def make_reservation(e):
@@ -99,15 +104,23 @@ def main(page: ft.Page):
             page.snack_bar = ft.SnackBar(
                 content=ft.Text("Invalid date or time!"))
             page.snack_bar.open = True
-            page.update()
             return
+
+        last_name_reservation_dropdown.value=""
+        year_dropdown.value=""
+        month_dropdown.value=""
+        day_dropdown.value=""
+        hour_dropdown.value=""
+        minute_dropdown.value=""
+        page.update()
+
 
         for visitor in visitors:
             if visitor.last_name == last_name:
                 visitor.reservation_time = gregorian_date
                 break
 
-        FileHandler.writeIO("visitors.txt", visitors)
+        FileHandler.writeIO(file_path, visitors)
         update_visitor_list()
         page.update()
 
@@ -117,7 +130,6 @@ def main(page: ft.Page):
         visitor_list.controls.clear()
         for visitor in sorted_visitors:
             if visitor.reservation_time:
-                # Convert Gregorian datetime back to Jalali for display
                 jalali_reservation_time = jdatetime.datetime.fromgregorian(
                     datetime=visitor.reservation_time)
                 reservation_time_str = jalali_reservation_time.strftime(
@@ -135,7 +147,6 @@ def main(page: ft.Page):
             )
         page.update()
 
-    # Input Tab (Dark Blue Background)
     first_name_input = ft.TextField(
         label="First Name", bgcolor=ft.colors.BLUE_100, color=ft.colors.BLACK)
     last_name_input = ft.TextField(
@@ -178,11 +189,10 @@ def main(page: ft.Page):
                 spacing=10,
             ),
             padding=20,
-            bgcolor=ft.colors.BLUE_900,  # Dark blue background
+            bgcolor=ft.colors.BLUE_900,  
         ),
     )
 
-    # Reservation Tab (Dark Green Background)
     last_name_reservation_dropdown = ft.Dropdown(
         label="Select Last Name",
         options=[],
@@ -244,7 +254,6 @@ def main(page: ft.Page):
         ),
     )
 
-    # Visitor List Tab (Dark Red Background)
     visitor_list = ft.ListView(expand=True)
 
     visitor_list_tab = ft.Tab(
@@ -256,7 +265,7 @@ def main(page: ft.Page):
                 ],
             ),
             padding=20,
-            bgcolor=ft.colors.RED_900,  # Dark red background
+            bgcolor=ft.colors.RED_900, 
         ),
     )
 
